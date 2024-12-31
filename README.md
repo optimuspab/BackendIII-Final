@@ -159,6 +159,11 @@ Puedes usar la imagen directamente desde Docker Hub:
 docker pull pguillermet/backendiii-final:1.0
 ```
 
+Link de imagen de docker:
+```
+https://hub.docker.com/r/pguillermet/backendiii-final/tags
+```
+
 Ejecuta la imagen:
 ```bash
 docker run -d -p 8080:8080 -p 3000:3000 pguillermet/backendiii-final:1.0

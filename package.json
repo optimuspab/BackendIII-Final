@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon --watch ./src --exec node index.js"
+    "dev": "nodemon --watch ./src --exec node index.js",
+    "test": "node src/tests/functional_tests_routes.test.js && node src/tests/mocks.test.js",
+    "build": "npm install"
   },
   "dependencies": {
     "@faker-js/faker": "^9.2.0",
