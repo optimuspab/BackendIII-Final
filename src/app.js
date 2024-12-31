@@ -7,6 +7,9 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import { fileURLToPath } from 'url';
 import { dirname, resolve } from 'path';
+import swaggerUi from 'swagger-ui-express';
+import YAML from 'yamljs';
+import { createError } from './errors/errors.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -40,8 +43,16 @@ app.use(express.json());
 app.use(loggerMiddleware);
 app.use(requestLogger);
 
+const swaggerDocument = YAML.load(resolve(__dirname, './docs/swagger.yaml'));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 app.use('/api/users', usersRouter);
 app.use('/api/mocks', mocksRouter);
+
+app.use((err, req, res, next) => {
+  const error = createError(err.key || 'SERVER_ERROR', err.message);
+  res.status(error.status).json({ status: 'error', code: error.code, message: error.message });
+});
 
 process.on('uncaughtException', (err) => {
   console.error('Uncaught Exception:', err);

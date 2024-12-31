@@ -1,0 +1,123 @@
+openapi: 3.0.0
+info:
+  title: Users API
+  version: 1.0.0
+  description: API documentation for the Users module
+servers:
+  - url: http://localhost:3000
+    description: Local development server
+paths:
+  /mockingusers:
+    get:
+      summary: Retrieve mocked users
+      description: Retrieve a list of mocked users. Optionally, specify the number of users to generate.
+      parameters:
+        - in: query
+          name: quantity
+          schema:
+            type: integer
+            minimum: 1
+          required: false
+          description: The number of users to generate (default is 50).
+      responses:
+        200:
+          description: A list of mocked users.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  payload:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        name:
+                          type: string
+                        email:
+                          type: string
+        400:
+          description: Invalid query parameter.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  message:
+                    type: string
+                    example: El parámetro quantity debe ser un número positivo.
+
+  /generateData:
+    post:
+      summary: Generate users and pets data
+      description: Generate the specified number of users and pets. Requires numeric values for users and pets.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                users:
+                  type: integer
+                  description: Number of users to generate.
+                  example: 10
+                pets:
+                  type: integer
+                  description: Number of pets to generate.
+                  example: 15
+      responses:
+        200:
+          description: Data generated successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: Datos generados correctamente
+        400:
+          description: Invalid input data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  code:
+                    type: string
+                    example: INVALID_INPUT
+                  message:
+                    type: string
+                    example: Los parámetros users y pets deben ser números.
+        500:
+          description: Server error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  code:
+                    type: string
+                    example: SERVER_ERROR
+                  message:
+                    type: string
+                    example: Error interno del servidor.
+
