@@ -153,25 +153,24 @@ Las pruebas están automatizadas usando `assert`.
 
 ## **Uso con Docker**
 
-### **Construir la Imagen Docker**
-```bash
-docker build -t tu_nombre_usuario/docker-backendiii-final:1.0 .
-```
-
-### **Ejecutar la Imagen Docker**
-```bash
-docker run -p 8080:8080 tu_nombre_usuario/docker-backendiii-final:1.0
-```
-
 ### **Imagen desde Docker Hub**
 Puedes usar la imagen directamente desde Docker Hub:
 ```bash
-docker pull tu_nombre_usuario/docker-backendiii-final:1.0
+docker pull pguillermet/backendiii-final:1.0
 ```
 
 Ejecuta la imagen:
 ```bash
-docker run -p 8080:8080 tu_nombre_usuario/docker-backendiii-final:1.0
+docker run -d -p 8080:8080 -p 3000:3000 pguillermet/backendiii-final:1.0
 ```
 
+Verificar si el container esta en ejecución:
+```bash
+docker ps
+```
+
+Ver los logs del container:
+```bash
+docker logs <container-id>
+```
 ---
